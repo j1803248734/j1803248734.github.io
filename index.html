@@ -148,6 +148,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-spring" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/05/spring/">Spring</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/05/spring/" class="archive-article-date">
+  	<time datetime="2019-08-05T15:26:46.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Spring的三大核心技术：IOC（控制反转）， DI（依赖注入），AOP（面向切面编程，是面向对象的补充）</p>
+<ol>
+<li>IOC(自己的理解)<br>启动的时候通过xml或者注解扫描，把配置好的类通过反射实例化，然后不用用户手动创建对象，把创建对象的控制权交给spring容器，效果就像是控制权反转了一样，从用户到spring容器。</li>
+<li>DI<br>其实这个就是参数版本的IOC我觉得这两个应该算一个，所有配置的参数都在容器里传递。</li>
+<li>AOP<br>运用动态代理的方式，在内存临时生成一个对象，在切点处进行增强操作然后返回原对象。</li>
+</ol>
+<p><strong>优点</strong><br>（1）    非侵入式设计<br>（2）    方便解耦 简化开发<br>（3）    支持AOP 面向切面<br>（4）    支持声明式事务处理<br>（5）    方便程序测试<br>（6）    方便集成各种优秀框架<br>（7）    降低JAVA EE API的使用难度</p>
+<p><strong>入门程序</strong><br>步骤：</p>
+<ol>
+<li><p>创建web项目</p>
+</li>
+<li><p>导包 四个核心包一个依赖包</p>
+</li>
+<li><p>配置文件 </p>
+</li>
+<li><p>测试</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Public <span class="class"><span class="keyword">class</span> <span class="title">UserService</span>&#123;</span>&#125;</span><br><span class="line">Public <span class="class"><span class="keyword">class</span> <span class="title">UserServlet</span>&#123;</span></span><br><span class="line">UserFactory.getSerice();</span><br><span class="line">&#125;</span><br><span class="line">&lt;bean id=”userService” class=””&gt;</span><br><span class="line">Public <span class="keyword">static</span> UserService getService()&#123;</span><br><span class="line">String classValue=”class属性值”		</span><br><span class="line">Class class=Class.forName(classValue);  利用反射创建类对象</span><br><span class="line">userServicee service=calss.newInstance();</span><br><span class="line"><span class="keyword">return</span> service;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Spring三大核心技术 IOC  DI  AOP ；最基础的概念是bean所有操作都是针对Object ， 在String中的所有文件都可以认为是注册和未注册的bean ， String中所有操作都是针对bean的操作 ， 三大思想的操作对象， 也都是bean！！</p>
+<p><strong>IOC（控制反转）:</strong><br>首先理解什么是控制不反转！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Public inter IPrint	&#123;</span><br><span class="line"><span class="function">String <span class="title">printObject</span><span class="params">()</span></span>;	</span><br><span class="line">&#125;			<span class="comment">//创建一个接口</span></span><br><span class="line">Public <span class="class"><span class="keyword">class</span> <span class="title">UserBean</span> <span class="title">implement</span> <span class="title">IPrint</span>&#123;</span></span><br><span class="line"><span class="function">Public String <span class="title">printObject</span><span class="params">()</span></span>&#123;</span><br><span class="line">System.out.print(“打印对象UserBean：”);</span><br><span class="line">Return “abc”</span><br><span class="line">&#125;</span><br><span class="line">&#125;	<span class="comment">//第一个实现类</span></span><br><span class="line">Public <span class="class"><span class="keyword">class</span> <span class="title">MyBean</span> <span class="title">implement</span> <span class="title">IPrint</span>&#123;</span></span><br><span class="line">			<span class="function">Public String <span class="title">printObject</span><span class="params">()</span></span>&#123;</span><br><span class="line">					System.out.print(“打印对象MyBean：”);</span><br><span class="line">								&#125;</span><br><span class="line">&#125;	<span class="comment">//第二个实现类</span></span><br></pre></td></tr></table></figure>
+
+<p>打印第一个实现类，客户端代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IPrint print=<span class="keyword">new</span> UserBean();		实例化对象</span><br><span class="line">Print.printObject();</span><br></pre></td></tr></table></figure>
+
+<p>创建实例化对象 然后实现方法<br>然后打印第二个实现类 这时候就需要修改代码 对于正经的系统来说  修改代码不符合开闭原则 又比较麻烦的事 所以就想能不能用配置文件来代替代码的修改 这时候就需要spring的控制反转 对继承了接口IPrint的具体实现类的具体对象的创建 不依赖于调用它的客户端代码 而将控制权交给Spring 这就是控制反转<br>配置xml文件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;beans xmlns=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">    xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">    xsi:schemaLocation=<span class="string">"</span></span><br><span class="line"><span class="string">        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=<span class="string">"userBean"</span> class=<span class="string">"testSpring.business.bean.UserBean"</span>&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>测试代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ctx=<span class="keyword">new</span> ClassPathXmlApplication(“applicationContext.xml”);</span><br><span class="line">IPrint bean=(IPrint)ctx.getBean(“userBean”);</span><br><span class="line">bean.Object();</span><br></pre></td></tr></table></figure>
+
+<p>如果想要打印另一个实现类  只要修改配置文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=<span class="string">"MyBean"</span> class=<span class="string">"testSpring.business.bean.MyBean"</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>DI（依赖注入）：</strong><br>…谁依赖谁 什么注入  向谁注入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Public class UserBean <span class="title">printObiect</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="function">Public String <span class="title">printObject</span><span class="params">()</span></span>&#123;</span><br><span class="line">			System.out.print(“打印对象UserBean:”);</span><br><span class="line">			Return “abc”;</span><br><span class="line">							&#125;</span><br><span class="line">&#125;  <span class="comment">//实现类</span></span><br><span class="line">Publc <span class="class"><span class="keyword">class</span> <span class="title">Print</span>&#123;</span></span><br><span class="line">	Private IPint printBean;	<span class="comment">//需要注入的对象 需要打印的bean</span></span><br><span class="line">	Private String name;</span><br><span class="line">	<span class="function">Public <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.print(“注入的name：”+name);</span><br><span class="line">		This.printBean.printObject();</span><br><span class="line">&#125;</span><br><span class="line">	<span class="function">Public <span class="keyword">void</span> <span class="title">setprintBean</span><span class="params">(IPint printBean)</span></span>&#123;</span><br><span class="line">		This.printBean=printBean;</span><br><span class="line">			&#125;</span><br><span class="line">	<span class="function">Public <span class="keyword">void</span> <span class="title">setname</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">		This.name=name;</span><br><span class="line">			&#125;</span><br><span class="line">&#125;</span><br><span class="line">	普通的时用print类的客户端代码</span><br><span class="line">	Print p=<span class="keyword">new</span> Print();</span><br><span class="line">	p.setPrintBean(<span class="keyword">new</span> UserBean());</span><br><span class="line">	print.print();</span><br><span class="line">	依赖注入客户端代码</span><br><span class="line">	Xml文件如下</span><br><span class="line">	&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;beans xmlns=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">    xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">    xsi:schemaLocation=<span class="string">"</span></span><br><span class="line"><span class="string">        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=<span class="string">"userBean"</span> class=<span class="string">"testSpring.business.bean.UserBean"</span>&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">	&lt;bean id=”printBean” class=”…..Print”&gt;</span><br><span class="line">		&lt;property name=”printBean” ref=”userBean”/&gt;</span><br><span class="line">		&lt;property name=”name” value=”haha”/&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br><span class="line">	客户端代码</span><br><span class="line">ApplicationContext ac=<span class="keyword">new</span> ClassPathXmlApplicationContext(“beans.xml”);</span><br><span class="line">Print bean=ac.getBean(“printBean”);</span><br><span class="line">Bean.print();</span><br></pre></td></tr></table></figure>
+
+<p><strong>AOP（面向切面编程）</strong><br>运用动态代理的方式，在内存临时生成一个对象，在切点处进行增强操作然后返回原对象。<br>连接点：类似于可以被增强的方法<br>切入点：可以被增强的连接点 实际被增强的方法 就是切入点<br>Advice：AOP框架在特定的切入点执行的增强处理 即在定义好的切入点处所即将要执行的程序代码 可以理解将其理解为切入类中俄方法<br>Target Object：代理对象<br>Proxy：将通知应用到目标对象之后 被动态创建的对象<br>Weaving：将切面代码插入到目标对象上 从而生成代理对象的过程</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">@org.aspectj.lang.annotation.Aspect</span><br><span class="line">@Component(<span class="string">"Aspect"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Aspect</span> &#123;</span></span><br><span class="line">    @Pointcut(<span class="string">"execution(* com.jiang.dao.*.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">myPointCut</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    @Before(<span class="string">"myPointCut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeAdvice</span><span class="params">(JoinPoint joinPoint)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"前置通知：模拟执行权限检查"</span>);</span><br><span class="line">        System.out.println(<span class="string">"被织入的增强处理的目标方法为："</span>+joinPoint.getSignature().getName());</span><br><span class="line">    &#125;</span><br><span class="line">    @AfterReturning(<span class="string">"myPointCut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturningAdvice</span><span class="params">(JoinPoint joinPoint)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"后置通知：模拟执行日志检查"</span>);</span><br><span class="line">        System.out.println(<span class="string">"被植入的增强处理的目标方法为："</span>+joinPoint.getSignature().getName());</span><br><span class="line">    &#125;</span><br><span class="line">    @Around(<span class="string">"myPointCut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">aroundAdvice</span><span class="params">(ProceedingJoinPoint proceedingJoinPoint)</span> throws Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"环绕开启"</span>);</span><br><span class="line">        Object obj;</span><br><span class="line">        obj = proceedingJoinPoint.proceed();</span><br><span class="line">        System.out.println(<span class="string">"环绕结束"</span>);</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">    @AfterThrowing(value = <span class="string">"myPointCut()"</span>,throwing = <span class="string">"e"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowingAdvice</span><span class="params">(JoinPoint joinPoint ,Throwable e)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"异常通知："</span>+<span class="string">"出错了"</span>+e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">    @After(<span class="string">"myPointCut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span>  <span class="title">afterAdvice</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"最终通知"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/05/spring/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-关于json和ajax" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
