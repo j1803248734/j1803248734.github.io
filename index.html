@@ -148,6 +148,210 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-easyUI实现下拉列表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/11/easyUI实现下拉列表/">EasyUI实现下拉列表</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/11/easyUI实现下拉列表/" class="archive-article-date">
+  	<time datetime="2019-08-11T12:42:44.228Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>部门表的树状下拉框实现<br><img src="https://img-blog.csdnimg.cn/20190726233454701.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190726232645174.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjUyMTQ3MA==,size_16,color_FFFFFF,t_70" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">public class DepartmentForTree &#123;</span><br><span class="line">	</span><br><span class="line">	private int id;</span><br><span class="line">	private String text;</span><br><span class="line">	private int pid;</span><br><span class="line">	private List&lt;DepartmentForTree&gt; children </span><br><span class="line">		= new ArrayList&lt;DepartmentForTree&gt;();</span><br><span class="line">	</span><br><span class="line">	public DepartmentForTree() &#123;</span><br><span class="line">		super();</span><br><span class="line">	&#125;</span><br><span class="line">	public DepartmentForTree(int id, String text) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.id = id;</span><br><span class="line">		this.text = text;</span><br><span class="line">	&#125;</span><br><span class="line">	public DepartmentForTree(int id, String text, int pid) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.id = id;</span><br><span class="line">		this.text = text;</span><br><span class="line">		this.pid = pid;</span><br><span class="line">	&#125;</span><br><span class="line">	public DepartmentForTree(int id, String text,</span><br><span class="line">			List&lt;DepartmentForTree&gt; children) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.id = id;</span><br><span class="line">		this.text = text;</span><br><span class="line">		this.children = children;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public int getPid() &#123;</span><br><span class="line">		return pid;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setPid(int pid) &#123;</span><br><span class="line">		this.pid = pid;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public int getId() &#123;</span><br><span class="line">		return id;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setId(int id) &#123;</span><br><span class="line">		this.id = id;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getText() &#123;</span><br><span class="line">		return text;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setText(String text) &#123;</span><br><span class="line">		this.text = text;</span><br><span class="line">	&#125;</span><br><span class="line">	public List&lt;DepartmentForTree&gt; getChildren() &#123;</span><br><span class="line">		return children;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setChildren(List&lt;DepartmentForTree&gt; children) &#123;</span><br><span class="line">		this.children = children;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return &quot;DepartmentForTree [id=&quot; + id + &quot;, text=&quot; + text + &quot;, children=&quot;</span><br><span class="line">				+ children + &quot;]&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>service实现方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public class DepartmentImpl implements IDepartmentBiz&#123;</span><br><span class="line">	private  DepartmentDao dao = new DepartmentDao();</span><br><span class="line">	public List&lt;DepartmentForTree&gt; queryAllDepartmentsForTree() &#123;</span><br><span class="line">		</span><br><span class="line">		String sql = &quot;SELECT &quot;</span><br><span class="line">				+ &quot; departmentID id , departmentName text &quot;</span><br><span class="line">				+ &quot;, parentID pid &quot;      //departmentID是二级部门ID parentID是一级部门ID</span><br><span class="line">				+ &quot; FROM department order by parentID asc&quot;;</span><br><span class="line">		</span><br><span class="line">		List&lt;DepartmentForTree&gt; departments =</span><br><span class="line">			dao.query(sql, DepartmentForTree.class, new Object[]&#123;&#125;);</span><br><span class="line">		</span><br><span class="line">		List&lt;DepartmentForTree&gt; ones = new ArrayList&lt;DepartmentForTree&gt;();</span><br><span class="line">		List&lt;DepartmentForTree&gt; twos = new ArrayList&lt;DepartmentForTree&gt;();</span><br><span class="line">		</span><br><span class="line">		for (DepartmentForTree department : departments) &#123;</span><br><span class="line">			if(department.getPid() == 0)</span><br><span class="line">			&#123;</span><br><span class="line">				</span><br><span class="line">				ones.add( department );</span><br><span class="line">			&#125;else</span><br><span class="line">			&#123;</span><br><span class="line">				twos.add( department);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; </span><br><span class="line">		</span><br><span class="line">		for (DepartmentForTree departmentOne : ones) &#123;</span><br><span class="line">			for (DepartmentForTree departmentTwo : twos) &#123;</span><br><span class="line">				if( departmentOne.getId() ==</span><br><span class="line">						departmentTwo.getPid())</span><br><span class="line">				&#123;</span><br><span class="line">					departmentOne.getChildren()</span><br><span class="line">						.add(departmentTwo);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		return ones;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Servlet实现方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">private void queryAll(HttpServletRequest request,</span><br><span class="line">			HttpServletResponse response) throws IOException &#123;</span><br><span class="line">		List&lt;DepartmentForTree&gt; departments = biz.queryAllDepartmentsForTree();</span><br><span class="line">		departments.add( </span><br><span class="line">				new DepartmentForTree( 0 , &quot;全部&quot; ) );</span><br><span class="line">		String jsonString = JSON.toJSONString(departments);</span><br><span class="line">		PrintWriter out = response.getWriter();</span><br><span class="line">		out.print(jsonString);</span><br><span class="line">		out.flush();</span><br><span class="line">		out.close();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>combotree方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$(</span><br><span class="line">	function () &#123;</span><br><span class="line">		$(&quot;#departmentID&quot;).combotree(</span><br><span class="line">		&#123;</span><br><span class="line">        	url:&apos;http://localhost:8080/KQSYS/DepartmentController/queryAllDepartmentsForTree&apos;,</span><br><span class="line">        	height:26,</span><br><span class="line">        	width:&apos;150px&apos;,</span><br><span class="line">        	onBeforeSelect : function(note)</span><br><span class="line">        	&#123;</span><br><span class="line">        		</span><br><span class="line">        		var rows = note.children;</span><br><span class="line">        		if(rows.length&gt;0)</span><br><span class="line">        		&#123;</span><br><span class="line">        			$(&quot;#departmentID&quot;).treegrid(&quot;unselect&quot;);</span><br><span class="line">        		&#125;</span><br><span class="line">        	&#125;</span><br><span class="line">        	,onSelect:function () &#123;</span><br><span class="line">           		  	</span><br><span class="line">        	&#125;</span><br><span class="line"></span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>有错误请指正 谢谢。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/11/easyUI实现下拉列表/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mybatis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/11/mybatis/">Mybatis框架</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/11/mybatis/" class="archive-article-date">
+  	<time datetime="2019-08-11T12:38:10.955Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>壹-简介</strong><br>Mybatis是一个优秀的持久层框架，他对jdbc的操作数据库的过程进行封装，使开发者只需要关注SQL本身，而不需要花费经历，去处理jdbc的过程代码（例如注册驱动，创建Connection，创建Statement，手动设置参数，结果集检索等），通过XML或者注解的方式，将要执行的各种statement（statement,preparedStatement.CallableStatement）配置起来，通过JAVA对象和statement中的sql进行映射，生成最终执行的sql语句，最后由mybatis框架执行sql并将结果映射成JAVA对象返回。<br> <strong>贰-流程</strong></p>
+<ol>
+<li><p>加载全局配置文件(MybatisConfig.xml),这个配置文件中通常是别名设置,拦截器的设置,(当ssm整合后,环境配置与mapper映射文件的注册会转移到spring配置文件中)</p>
+</li>
+<li><p>xml全局配置文件会产生一个构建者类,叫做xmlconfigBuilder,这个类是用来通过xml配置文件来构建Configuration对象实例的,构建的过程就是解析(MybatisConfig.xml)配置文件调用parse产生configuration对象</p>
+</li>
+<li><p>随后产生的就是Mybatis的配置类(Configuration),这个类可以作为项目的全局配置对象</p>
+</li>
+<li><p>接下来便是SqlSessionFactory(会话工厂)的构建者类,(SqlSessionFactoryBuilder),configuration配置对象,就可以调用会话工厂构建者类中的build方法完成对会话工厂对象的构建.</p>
+</li>
+<li><p>产生SqlSessionFactory(会话工厂),是用来生成会话的接口,有一个实现类(DefaultSqlSessionFactory)这个实现类是真正的会话的工厂类,并且它是单例的.会一直存在到服务器关闭.</p>
+</li>
+<li><p>通过调用会话工厂的实现类中(DefaultSqlSessionFactory)的openSession()方法完成SqlSession对象的创建.</p>
+</li>
+<li><p>产生sqlsession,该接口是会话,并且是非线程安全的.每一次对数据库的访问都需要创建一个sqlsession,当得到结果后sqlsession就会被废弃,所以声明周期短.</p>
+</li>
+<li><p>当然这当中还有一个Excutor执行器接口,这才是内部真正对数据库进行操作的操作者,他才是真正的干事的.</p>
+</li>
+<li><p>另外就是StatementHandler该类是Statment处理器,封装了对数据库各种操作方法,使用时候,就调用其中的一些方法.</p>
+</li>
+<li><p>最后就是结果集处理器(ResultSetHandler),这个处理器的作用就是对结果进行处理并返回的.</p>
+</li>
+</ol>
+<p><strong>叁-入门程序</strong></p>
+<ul>
+<li>导包</li>
+</ul>
+<ol>
+<li>mybatis-3.2.7.jar</li>
+<li>数据库驱动包</li>
+</ol>
+<ul>
+<li>建立数据库</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `t_user`  (</span><br><span class="line">  `id` <span class="keyword">int</span>(<span class="number">11</span>) NOT <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  `name` varchar(<span class="number">20</span>) CHARACTER SET utf8 COLLATE utf8_general_ci <span class="literal">NULL</span> DEFAULT <span class="literal">NULL</span>,</span><br><span class="line">  `sex` <span class="keyword">char</span>(<span class="number">1</span>) DEFAULT <span class="literal">NULL</span> COMMENT <span class="string">',</span></span><br><span class="line">  PRIMARY KEY (`id`) USING BTREE</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建实体类</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line"><span class="keyword">private</span> String username;</span><br><span class="line"><span class="keyword">private</span> String sex;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>db.properties的创建</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jdbc.driver=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql:<span class="comment">//localhost:3306/mybatis?characterEncoding=utf-8</span></span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=<span class="number">123456</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建mybatis - config.xml</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> ?&gt; </span><br><span class="line">&lt;!DOCTYPE configuration  PUBLIC <span class="string">"-//mybatis.org//DTD Config 3.0//EN"</span>  </span><br><span class="line">	<span class="string">"http://mybatis.org/dtd/mybatis-3-config.dtd"</span>&gt; </span><br><span class="line">	</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;properties resource=<span class="string">"db.properties"</span>&gt;&lt;/properties&gt;</span><br><span class="line">	&lt;typeAliases&gt;</span><br><span class="line">		&lt;!--  &lt;typeAlias alias=<span class="string">"customer"</span> type=<span class="string">"com.itheima.po.Customer"</span>/&gt;--&gt;</span><br><span class="line">		&lt;package name=<span class="string">"com.itheima.po"</span>/&gt;</span><br><span class="line">	&lt;/typeAliases&gt;</span><br><span class="line">	&lt;!-- 和spring整合后 environments配置将废除 --&gt;</span><br><span class="line">	&lt;environments <span class="keyword">default</span>=<span class="string">"development"</span>&gt;</span><br><span class="line">		&lt;environment id=<span class="string">"development"</span>&gt;</span><br><span class="line">			&lt;!-- 使用jdbc事务管理 --&gt;</span><br><span class="line">			&lt;transactionManager type=<span class="string">"JDBC"</span>&gt;&lt;/transactionManager&gt;</span><br><span class="line">			 &lt;!-- 数据库连接池 --&gt;</span><br><span class="line">			&lt;dataSource type=<span class="string">"POOLED"</span>&gt;</span><br><span class="line">				&lt;property name=<span class="string">"driver"</span> value=<span class="string">"$&#123;jdbc.driver&#125;"</span>/&gt;</span><br><span class="line">				&lt;property name=<span class="string">"url"</span> value=<span class="string">"$&#123;jdbc.url&#125;"</span>/&gt;</span><br><span class="line">				&lt;property name=<span class="string">"username"</span> value=<span class="string">"$&#123;jdbc.username&#125;"</span>/&gt;</span><br><span class="line">				&lt;property name=<span class="string">"password"</span> value=<span class="string">"$&#123;jdbc.password&#125;"</span>/&gt;</span><br><span class="line">				&lt;property name=<span class="string">"poolMaximumActiveConnections"</span> value=<span class="string">"10"</span>/&gt;</span><br><span class="line">				&lt;property name=<span class="string">"poolMaximumIdleConnections"</span> value=<span class="string">"10"</span>/&gt;</span><br><span class="line">				&lt;property name=<span class="string">"poolMaximumCheckoutTime"</span> value=<span class="string">"200000"</span>/&gt;</span><br><span class="line">				&lt;property name=<span class="string">"poolTimeToWait"</span> value=<span class="string">"20000"</span>/&gt;</span><br><span class="line">				&lt;property name=<span class="string">"poolPingQuery"</span> value=<span class="string">"No"</span>/&gt;</span><br><span class="line">				&lt;property name=<span class="string">"poolPingEnabled"</span> value=<span class="string">"false"</span>/&gt;</span><br><span class="line">				&lt;property name=<span class="string">"poolPingConnectionsNotUsedFor"</span> value=<span class="string">"0"</span>/&gt;</span><br><span class="line">			&lt;/dataSource&gt;</span><br><span class="line">		&lt;/environment&gt;</span><br><span class="line">	&lt;/environments&gt;</span><br><span class="line">	&lt;mappers&gt;</span><br><span class="line">		&lt;mapper resource=<span class="string">"../src/Dao/UserMapper.xml"</span> /&gt;</span><br><span class="line">	&lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建log4j.properties（src目录下）</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Global logging configuration </span><br><span class="line">log4j.rootLogger=DEBUG, <span class="built_in">stdout</span> </span><br><span class="line"># MyBatis logging configuration... </span><br><span class="line">#log4j.logger.com.itheima.mapper=DEBUG</span><br><span class="line"># Console output... </span><br><span class="line">log4j.appender.<span class="built_in">stdout</span>=org.apache.log4j.ConsoleAppender </span><br><span class="line">log4j.appender.<span class="built_in">stdout</span>.layout=org.apache.log4j.PatternLayout </span><br><span class="line">log4j.appender.<span class="built_in">stdout</span>.layout.ConversionPattern=%<span class="number">5</span>p [%t] - %m%n</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置文件Mapper1.xml（可以统一放在src/sqlMap文件夹下）</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">PUBLIC <span class="string">"-//mybatis.org//DTD Mapper 3.0//EN"</span></span><br><span class="line"><span class="string">"http://mybatis.org/dtd/mybatis-3-mapper.dtd"</span>&gt;</span><br><span class="line">&lt;!-- <span class="keyword">namespace</span>：命名空间，用于隔离sql, </span><br><span class="line">命名空间 user.findUserById</span><br><span class="line">--&gt;</span><br><span class="line">&lt;mapper <span class="keyword">namespace</span>=<span class="string">"user"</span>&gt;</span><br><span class="line">&lt;!--<span class="keyword">namespace</span>+id用来定位具体的sql   parameterType：参数类型   resultType：返回值--&gt;</span><br><span class="line">&lt;select id=<span class="string">"findUserById"</span> parameterType=<span class="string">"Integer"</span> resultType=<span class="string">"com.itheima.pojo.User"</span>&gt;</span><br><span class="line">    select * from t_user where id=#&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>同时，需要在mybatis - config.xml中加入如下信息，表明mapper.xml位置</li>
+<li>测试</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisTest1</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMybatis</span><span class="params">()</span> throws IOException </span>&#123;</span><br><span class="line">        <span class="comment">//加载核心文件</span></span><br><span class="line">        String resource=<span class="string">"mybatis - config.xml"</span>;</span><br><span class="line">        InputStream resourceAsStream = Resources.getResourceAsStream(resource);</span><br><span class="line">        <span class="comment">//创建sqlSessionFactory</span></span><br><span class="line">        SqlSessionFactory sqlSessionFactory=<span class="keyword">new</span> SqlSessionFactoryBuilder().build(resourceAsStream);</span><br><span class="line">        <span class="comment">//创建sqlSession</span></span><br><span class="line">        SqlSession session=sqlSessionFactory.openSession();</span><br><span class="line">        <span class="comment">//执行sql语句</span></span><br><span class="line">         User user = session.selectOne(<span class="string">"user.findUserById"</span>, <span class="number">1</span>);</span><br><span class="line">         System.out.println(user);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/11/mybatis/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-spring" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
